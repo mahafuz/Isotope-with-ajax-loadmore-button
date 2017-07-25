@@ -1,0 +1,12 @@
+.projects-filter {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.projects-filter li {
+    display: inline-block;
+    font-size: 16px;
+    padding: 15px;
+    cursor: pointer;
+}

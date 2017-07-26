@@ -39,7 +39,7 @@ class MR_Loader_Post_Shortcode {
         }
 
         $offset = isset( $_REQUEST['offset'] ) ? intval( $_REQUEST['offset'] ) : 0;
-        $posts_per_page = isset( $_REQUEST['posts_per_page'] ) ? intval( $_REQUEST['posts_per_page'] ) : 10;
+        $posts_per_page = isset( $_REQUEST['posts_per_page'] ) ? intval( $_REQUEST['posts_per_page'] ) : 3;
         $post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : 'loader-posts';
 
         ob_start();
@@ -72,24 +72,14 @@ class MR_Loader_Post_Shortcode {
                 }else {
                     $project_assigned_cat_list = '';
                 }
-            ?>
-            <div class="single-kites-project-wrap col-md-4 col-sm-6 <?php echo strip_tags(esc_attr($project_assigned_cat_list)); ?>">
 
-                <div class="single-kites-project kite-project-1" style="">
-                    <a href="single-portfolio-1.html" class="portfolio-hover-1">
-                        <div class="project-bio">
-                            <div class="plus-icon">
-                                <div class="shape1"></div>
-                                <div class="shape2"></div>
-                            </div>
-                            <h4>White Light<br>Photography</h4>
-                        </div>
-                    </a>
-                </div>
+                $post_feat_image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
+                $project_no++;
 
-            </div><!-- /.single-kites-project-wrap -->
-            <?php
-            endwhile;
+            // Rendering single loader posts
+            require( 'views/single-mr-loader-post.php' );
+
+            endwhile; // end of while loop
             $result['html'] = ob_get_clean();
             
         }else {
@@ -172,17 +162,15 @@ class MR_Loader_Post_Shortcode {
                     });
                 </script><!-- /. Isotpe Active primary js activation -->
 
-                <div class="col-md-12">
-                    <ul class="projects-filter">
+                <ul class="projects-filter">
 
-                        <li id="mr-all-projects-filter" data-filter="*" class="active">All</li>
+                    <li id="mr-all-projects-filter" data-filter="*" class="active">All</li>
 
-                        <?php foreach( $project_categories as $project_category ) : ?>
-                            <li data-filter=".<?php echo esc_attr($project_category->slug); ?>"><?php echo esc_attr($project_category->name); ?></li>
-                        <?php endforeach; ?>
+                    <?php foreach( $project_categories as $project_category ) : ?>
+                        <li data-filter=".<?php echo esc_attr($project_category->slug); ?>"><?php echo esc_attr($project_category->name); ?></li>
+                    <?php endforeach; ?>
 
-                    </ul><!-- /.projects-filter -->
-                </div>
+                </ul><!-- /.projects-filter -->
 
                 </div><!-- /.row -->
             </div><!-- /.container -->
@@ -193,13 +181,16 @@ class MR_Loader_Post_Shortcode {
             <?php if( $q->have_posts() ) : ?>
             <div id="mr-all-projects-wrap" class="mr-projects-style">
 
-                <?php 
+                <?php
+
+                    $project_no = 0;
+
                     // Loop
                     while( $q->have_posts() ) : $q->the_post();
+                    $project_no++;
 
                     // Find out assigned category names in this post
                     $project_assigned_catname = get_the_terms( get_the_ID(), 'projects_cat' );
-
                     if( ! empty( $project_assigned_catname ) && ! is_wp_error( $project_assigned_catname ) ) {
                         $project_assigned_cats_array = array();
 
@@ -211,24 +202,15 @@ class MR_Loader_Post_Shortcode {
                     }else {
                         $project_assigned_cat_list = '';
                     }
+
                     
-                ?>
-                    <div class="single-kites-project-wrap col-md-4 col-sm-6 <?php echo strip_tags(esc_attr($project_assigned_cat_list)); ?>">
 
-                        <div class="single-kites-project kite-project-1" style="">
-                            <a href="single-portfolio-1.html" class="portfolio-hover-1">
-                                <div class="project-bio">
-                                    <div class="plus-icon">
-                                        <div class="shape1"></div>
-                                        <div class="shape2"></div>
-                                    </div>
-                                    <h4>White Light<br>Photography</h4>
-                                </div>
-                            </a>
-                        </div>
-
-                    </div><!-- /.single-kites-project-wrap -->
-                <?php endwhile; // end of while have posts ?>
+                    $post_feat_image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
+                    
+                    // Rendering single loader posts
+                    require( 'views/single-mr-loader-post.php' );
+               
+                endwhile; // end of while have posts ?>
                 
 
             </div><!-- #mr-all-projects-wrap -->
@@ -271,12 +253,14 @@ class MR_Loader_Post_Shortcode {
                             if (response['have_posts'] == 1){//if have posts:
                                 $load_more_btn.removeClass('loading').html('Load More');
                                 var $newElems = $(response['html'].replace(/(\r\n|\n|\r)/gm, ''));// here removing extra breaklines and spaces
-                                console.log($newElems);
                                 $('#mr-all-projects-wrap').append($newElems);
                                 $("#mr-all-projects-wrap").isotope( 'reloadItems' ).isotope();
                             } else {
                                 //end of posts (no posts found)
-                                $load_more_btn.removeClass('loading').addClass('end_of_posts').html('<span>End of posts</span>'); // change buttom styles if no more posts
+                                $load_more_btn.removeClass('loading').addClass('end_of_posts').html('<span>No more projects found</span>'); // change buttom styles if no more posts
+                                setTimeout(function() {
+                                    $('.end_of_posts').fadeOut();
+                                }, 1000 );
                             }
                         }
                     });

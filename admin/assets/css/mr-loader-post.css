@@ -5,8 +5,108 @@
 }
 
 .projects-filter li {
+    color: #666666;
+    cursor: pointer;
     display: inline-block;
     font-size: 16px;
-    padding: 15px;
-    cursor: pointer;
+    padding: 0 25px;
+}
+
+.projects-filter {
+    margin-bottom: 75px;
+}
+
+.single-kites-project {
+    height: 320px;
+}
+
+.portfolio-hover-1 {
+    height: 100%;
+    display: block;
+    width: 100%;
+}
+
+.single-kites-project {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.portfolio-hover-1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, .80);
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.single-kites-project:hover .portfolio-hover-1 {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.project-bio {
+    bottom: 0;
+    height: 180px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 160px;
+}
+
+.project-bio h4 > span {
+    display: block;
+    font-size: 20px;
+    color: #e2e2e2;
+    font-weight: 300;
+    margin: 0px;
+    line-height: 40px;
+}
+
+.plus-icon {
+    display: block;
+    height: 50px;
+    margin: 0 auto 20px;
+    position: relative;
+    width: 50px;
+}
+
+.plus-icon .shape1 {
+    background: #fff none repeat scroll 0 0;
+    height: 0%;
+    left: 50%;
+    margin-left: -1px;
+    position: absolute;
+    width: 2px;
+    transition: .3s;
+    transition-delay: .2s;
+}
+
+.single-kites-project:hover .plus-icon .shape1 {
+    height: 100%;
+}
+
+.plus-icon .shape2 {
+    background: #fff none repeat scroll 0 0;
+    height: 2px;
+    margin-top: -1px;
+    position: absolute;
+    top: 50%;
+    width: 0%;
+    transition: .3s;
+    transition-delay: .2s;
+}
+
+.single-kites-project:hover .plus-icon .shape2 {
+    width: 100%;
 }

@@ -77,7 +77,7 @@ class MR_Loader_Post_Shortcode {
                 $project_no++;
 
             // Rendering single loader posts
-            require( 'views/single-mr-loader-post.php' );
+            require( 'views/partials/single-mr-loader-post.php' );
 
             endwhile; // end of while loop
             $result['html'] = ob_get_clean();
@@ -208,7 +208,7 @@ class MR_Loader_Post_Shortcode {
                     $post_feat_image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
                     
                     // Rendering single loader posts
-                    require( 'views/single-mr-loader-post.php' );
+                    require( 'views/partials/single-mr-loader-post.php' );
                
                 endwhile; // end of while have posts ?>
                 

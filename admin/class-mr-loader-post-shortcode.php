@@ -130,7 +130,7 @@ class MR_Loader_Post_Shortcode {
 
                 <script>
                     jQuery(document).ready(function($){
-                        $(".projects-filter li").click(function(){
+                        $(".projects-filter li").on('click', function(){
 
                         $(".projects-filter li").removeClass("active");
                         $(this).addClass("active");
@@ -229,10 +229,11 @@ class MR_Loader_Post_Shortcode {
 
                     e.preventDefault();
 
-                    var $load_more_btn = $(this);
-                    var post_type = 'loader-posts'; // this is optional and can be set from anywhere, stored in mockup etc...
-                    var offset = $('#mr-all-projects-wrap .single-kites-project-wrap').length;
-                    var nonce = $load_more_btn.attr('data-nonce');
+                    var $load_more_btn = $(this),
+                        post_type = 'loader-posts',
+                        offset = $('#mr-all-projects-wrap .single-kites-project-wrap').length,
+                        nonce = $load_more_btn.attr('data-nonce');
+
                     $.ajax({
                         type : "POST",
                         context: this,
@@ -243,7 +244,6 @@ class MR_Loader_Post_Shortcode {
                             offset:offset,
                             nonce:nonce, 
                             post_type:post_type
-                            // posts_per_page:
                         },
                         beforeSend: function(data) {
                             // here u can do some loading animation...

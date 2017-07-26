@@ -9,7 +9,13 @@
     cursor: pointer;
     display: inline-block;
     font-size: 16px;
+    transition:.4s;
     padding: 0 25px;
+}
+
+.projects-filter li:hover,
+.projects-filter li.active {
+    color: #000;
 }
 
 .projects-filter {

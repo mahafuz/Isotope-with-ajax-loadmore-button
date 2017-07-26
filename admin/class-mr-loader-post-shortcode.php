@@ -225,7 +225,7 @@ class MR_Loader_Post_Shortcode {
 
             jQuery(document).ready(function( $ ){
 
-                $('.loadmore-project-btn').on('click',function(e){
+                $('.loadmore-project-btn:not(.loading)').live('click',function(e){
 
                     e.preventDefault();
 

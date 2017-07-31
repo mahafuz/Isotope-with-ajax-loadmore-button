@@ -2,7 +2,7 @@
 /**
  * Represents the mr isotope loader plugin dashboard admin menu, posts, meta box
  *
- * @link            http://.mahafuzurrahman.me/wp-plugins/wp-isotope-
+ * @link            http://.mahafuzurrahman.me/wp-plugins/wp-isotope-loader-posts
  * @since           0.1.0
  *
  * @package         MR_Isotope_Loader

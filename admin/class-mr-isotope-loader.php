@@ -2,7 +2,7 @@
 /**
  * The dashboard-specific functionality of the plugin.
  * 
- * @link            http://.mahafuzurrahman.me/wp-plugins/wp-isotope-
+ * @link            http://.mahafuzurrahman.me/wp-plugins/wp-isotope-loader-posts
  * @since           0.1.0
  *
  * @package         MR_Isotope_Loader
@@ -59,6 +59,15 @@ class MR_Isotope_Loader_Admin {
     private $mr_shortcodes;
 
     /**
+     * Custom post meta boxes for this plugin
+     *
+     * @since   0.1.0
+     * @access  private
+     * @var     string  $meta_boxes   Custom post meta boxes for this plugin
+     */
+    private $meta_boxes;
+
+    /**
      * Initialize the class and set its properties
      * 
      * @since   0.1.0
@@ -70,6 +79,7 @@ class MR_Isotope_Loader_Admin {
         $this->version = $version;
         $this->custom_post = new MR_Isotope_Loadmore_Post();
         $this->mr_shortcodes = new MR_Loader_Post_Shortcode();
+        $this->meta_boxes = new MR_Loader_Post_Meta_Box();
 
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_mr_loader_post_js' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_mr_loader_post_css' ) );
@@ -85,6 +95,13 @@ class MR_Isotope_Loader_Admin {
         wp_enqueue_script(
             'isotope',
             plugin_dir_url( __FILE__ ) . 'assets/js/isotope.pkgd.min.js',
+            array( 'jquery' ),
+            $this->version
+        );
+
+        wp_enqueue_script(
+            'isotope-packery',
+            plugin_dir_url( __FILE__ ) . 'assets/js/packery.pkgd.min.js',
             array( 'jquery' ),
             $this->version
         );

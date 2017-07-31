@@ -108,10 +108,11 @@ class MR_Loader_Post_Shortcode {
             ''  => ''
         ), $atts ));
 
+
         // Post query arguments
         $q = new WP_Query(array(
             'post_type'         => 'loader-posts',
-            'posts_per_page'    => '9'
+            'posts_per_page'    => 9
         ));
 
         ob_start();
@@ -125,6 +126,7 @@ class MR_Loader_Post_Shortcode {
 
                 if( ! empty( $project_categories ) && ! is_wp_error( $project_categories) ) :
             ?>
+
             <div class="container">
                 <div class="row">
 
@@ -147,17 +149,19 @@ class MR_Loader_Post_Shortcode {
 
                             $(".load-more-projects-wrap").hide();
                         });
-                        $("#mr-all-projects-filter").click(function(){
+                        $("#mr-all-projects-filter").on('click', function(){
                             $(".load-more-projects-wrap").show();
                         });
+
+                        $('.mr-project-style-3').children('.single-kites-project-wrap').addClass('single-full-width-project').removeClass('col-md-4 col-sm-6');
 
 
                     });
 
-                    jQuery(window).load(function(){
+                    jQuery(window).load(function($){
                         jQuery("#mr-all-projects-wrap").isotope({
                             itemSelector: ".single-kites-project-wrap",
-                            layoutMode: "masonry",
+                            layoutMode: "masonry"
                         });
                     });
                 </script><!-- /. Isotpe Active primary js activation -->
@@ -179,7 +183,7 @@ class MR_Loader_Post_Shortcode {
 
 
             <?php if( $q->have_posts() ) : ?>
-            <div id="mr-all-projects-wrap" class="mr-projects-style">
+            <div id="mr-all-projects-wrap" class="mr-projects-style <?php echo esc_attr($project_layout_class); ?>">
 
                 <?php
 
@@ -251,13 +255,21 @@ class MR_Loader_Post_Shortcode {
                         },
                         success: function(response) {
                             if (response['have_posts'] == 1){//if have posts:
-                                $load_more_btn.removeClass('loading').html('Load More');
+                                
+                                setTimeout(function() {
+                                    $load_more_btn.removeClass('loading').html('Load More');
+                                }, 1000);
+
                                 var $newElems = $(response['html'].replace(/(\r\n|\n|\r)/gm, ''));// here removing extra breaklines and spaces
-                                $('#mr-all-projects-wrap').append($newElems);
-                                $("#mr-all-projects-wrap").isotope( 'reloadItems' ).isotope();
+
+                                setTimeout(function() {
+                                    $('#mr-all-projects-wrap').append($newElems);
+                                    $("#mr-all-projects-wrap").isotope( 'reloadItems' ).isotope();
+                                }, 600 );
+                                
                             } else {
                                 //end of posts (no posts found)
-                                $load_more_btn.removeClass('loading').addClass('end_of_posts').html('<span>No more projects found</span>'); // change buttom styles if no more posts
+                                $load_more_btn.removeClass('loading', 1000 ).addClass('end_of_posts').html('<span>No more projects found</span>'); // change buttom styles if no more posts
                                 setTimeout(function() {
                                     $('.end_of_posts').fadeOut();
                                 }, 1000 );

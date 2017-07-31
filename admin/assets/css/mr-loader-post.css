@@ -1,3 +1,7 @@
+#mr-all-projects-wrap {
+    overflow: hidden;
+}
+
 .projects-filter {
     margin: 0px;
     padding: 0px;
@@ -23,7 +27,11 @@
 }
 
 .single-kites-project {
-    height: 320px;
+    height: 280px;
+}
+
+.single-kites-project.long-height-project-item {
+    height: 480px;
 }
 
 .portfolio-hover-1 {
@@ -115,4 +123,51 @@
 
 .single-kites-project:hover .plus-icon .shape2 {
     width: 100%;
+}
+
+
+.loadmore-project-btn {
+    display: inline-block;
+    color: #333;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.loadmore-project-btn.loading {
+    color: #000;
+    position: relative;
+    padding-left: 25px;
+}
+
+.loadmore-project-btn.loading:after {
+    position: absolute;
+    left: 0px;
+    content: "\f0de";
+    font-family: icofont;
+}
+
+
+
+ .single-kites-project.kites-project-1,
+ .single-kites-project.kites-project-3, 
+.single-kites-project.kites-project-4,
+ .single-kites-project.kites-project-7, 
+.single-kites-project.kites-project-9 {
+    height: 450px;
+} 
+
+.single-kites-project-wrap.single-full-width-project {
+    float: left;
+    width: 33.33%;
+    display: block;
+}
+
+.single-kites-project-wrap.single-full-width-project > .single-kites-project {
+    height: 533px;
+    margin: 0px;
+    padding: 0px;
+    outline: none;
+    border:0px solid;
 }

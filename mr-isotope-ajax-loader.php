@@ -50,6 +50,15 @@ require_once plugin_dir_path( __FILE__ ) . 'admin/class-mr-loader-post-shortcode
 
 
 /**
+ * The core plugin post meta boxes class that is used to rendering the mr custom post
+ * meta boxes.
+ *
+ * @since   0.1.0
+ */
+require_once plugin_dir_path( __FILE__ ) . 'admin/meta-box/class-mr-loader-post-meta-box.php';
+
+
+/**
  * Begins execution of the plugin.
  *
  * Everything for this particular plugin will be done so from within the

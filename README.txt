@@ -1,4 +1,4 @@
-#MR Isotope with AJAX Load More Plugin
+# MR Isotope with AJAX Load More Plugin
 Contributors: Mahfuz Rahman
 Donate link: http://mahfuzurrahman.me
 Tags: isotope, js, LoadMore, ajax

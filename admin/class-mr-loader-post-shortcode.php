@@ -21,7 +21,7 @@ class MR_Loader_Post_Shortcode {
 
     /**
      * Initialize shortcode function
-     * 
+     *
      * @since   0.1.0
      */
     public function __construct() {
@@ -81,16 +81,16 @@ class MR_Loader_Post_Shortcode {
 
             endwhile; // end of while loop
             $result['html'] = ob_get_clean();
-            
+
         }else {
             $result['have_posts'] = false;
         }
 
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
             $result = json_encode($result);
-            echo $result; 
+            echo $result;
         }
-        else { 
+        else {
             header("Location: ".$_SERVER["HTTP_REFERER"]);
         }
         die();
@@ -99,20 +99,20 @@ class MR_Loader_Post_Shortcode {
 
     /**
      * Post shortcode function
-     * 
+     *
      * @since   0.1.0
      */
     public function add_loader_post_shortcode( $content, $atts = null ){
 
         extract(shortcode_atts( array(
-            ''  => ''
+            'count'  => 9
         ), $atts ));
 
 
         // Post query arguments
         $q = new WP_Query(array(
             'post_type'         => 'loader-posts',
-            'posts_per_page'    => 9
+            'posts_per_page'    => $count
         ));
 
         ob_start();
@@ -207,15 +207,15 @@ class MR_Loader_Post_Shortcode {
                         $project_assigned_cat_list = '';
                     }
 
-                    
+
 
                     $post_feat_image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
-                    
+
                     // Rendering single loader posts
                     require( 'views/partials/single-mr-loader-post.php' );
-               
+
                 endwhile; // end of while have posts ?>
-                
+
 
             </div><!-- #mr-all-projects-wrap -->
 
@@ -246,7 +246,7 @@ class MR_Loader_Post_Shortcode {
                         data : {
                             action: "mr_load_more_post",
                             offset:offset,
-                            nonce:nonce, 
+                            nonce:nonce,
                             post_type:post_type
                         },
                         beforeSend: function(data) {
@@ -255,7 +255,7 @@ class MR_Loader_Post_Shortcode {
                         },
                         success: function(response) {
                             if (response['have_posts'] == 1){//if have posts:
-                                
+
                                 setTimeout(function() {
                                     $load_more_btn.removeClass('loading').html('Load More');
                                 }, 1000);
@@ -266,7 +266,7 @@ class MR_Loader_Post_Shortcode {
                                     $('#mr-all-projects-wrap').append($newElems);
                                     $("#mr-all-projects-wrap").isotope( 'reloadItems' ).isotope();
                                 }, 600 );
-                                
+
                             } else {
                                 //end of posts (no posts found)
                                 $load_more_btn.removeClass('loading', 1000 ).addClass('end_of_posts').html('<span>No more projects found</span>'); // change buttom styles if no more posts
